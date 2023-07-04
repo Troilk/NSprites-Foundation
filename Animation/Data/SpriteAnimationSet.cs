@@ -17,6 +17,11 @@ namespace NSprites
         [SerializeField] private NamedAnimation[] _animations;
 
         public IReadOnlyCollection<NamedAnimation> Animations => _animations;
+
+        public void SetAnimations(NamedAnimation[] animations)
+        {
+            _animations = animations;
+        }
         
         // returns true if all animation's sprites have the same texture as passed in
         public bool IsValid(Texture2D mainTexture)

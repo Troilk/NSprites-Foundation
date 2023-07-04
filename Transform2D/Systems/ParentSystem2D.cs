@@ -16,6 +16,7 @@ namespace NSprites
     /// </summary>
     [BurstCompile]
     [RequireMatchingQueriesForUpdate]
+    [WorldSystemFilter(WorldSystemFilterFlags.Default | WorldSystemFilterFlags.Editor)]
     [UpdateInGroup(typeof(TransformSystemGroup))]
     public partial struct ParentSystem2D : ISystem
     {
