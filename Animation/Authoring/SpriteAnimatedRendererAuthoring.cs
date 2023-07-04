@@ -19,8 +19,8 @@ namespace NSprites
                 
                 var initialAnimData = authoring.AnimationAuthoringModule.InitialAnimationData;
                 var initialSheetUVAtlas = (float4)NSpritesUtils.GetTextureST(initialAnimData.SpriteSheet);
-                var initialFrameUVAtlas = new float4(new float2(initialSheetUVAtlas.xy / initialAnimData.FrameCount), initialSheetUVAtlas.zw);
-                var frameSize = initialAnimData.SpriteSheet.GetSize() / initialAnimData.FrameCount;
+                var initialFrameUVAtlas = new float4(new float2(initialSheetUVAtlas.xy / initialAnimData.FramesPerSprite), initialSheetUVAtlas.zw);
+                var frameSize = initialAnimData.SpriteSheet.GetSize() / initialAnimData.FramesPerSprite;
                 
                 authoring.RegisterSpriteData.Bake(this, initialAnimData.SpriteSheet.texture);
                 authoring.AnimationAuthoringModule.Bake(this);

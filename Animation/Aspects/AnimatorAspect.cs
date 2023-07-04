@@ -23,10 +23,12 @@ namespace NSprites
                     setToAnimIndex = i;
                     break;
                 }
-
+            
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
             if (setToAnimIndex == -1)
                 throw new NSpritesException($"{nameof(AnimatorAspect)}.{nameof(SetAnimation)}: incorrect {nameof(toAnimationIndex)} was passed. {_entity} has no animation with such ID ({toAnimationIndex}) was found");
-
+#endif
+            
             if (_animationIndex.ValueRO.value != setToAnimIndex)
             {
                 ref var animData = ref animSet[setToAnimIndex];

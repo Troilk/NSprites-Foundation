@@ -44,14 +44,15 @@ namespace NSprites.Authoring
             
             baker.BakeSpriteRender
             (
-                baker.GetEntity(TransformUsageFlags.None),
+                baker.GetEntity(TransformUsageFlags.Dynamic),
                 authoring,
                 uvAtlas,
                 GetTilingAndOffsetByDrawMode(),
                 Pivot,
                 Size * nativeSize * new float2(authoringScale.x, authoringScale.y),
                 flipX: Flip.x,
-                flipY: Flip.y
+                flipY: Flip.y,
+                false
             );
         }
 

@@ -28,8 +28,7 @@ namespace NSprites
                 if (timerDelta >= 0f)
                 {
                     ref var animData = ref animationSet.value.Value[animationIndex.value];
-                    var frameCount = animData.GridSize.x * animData.GridSize.y;
-                    frameIndex.value = (frameIndex.value + 1) % frameCount;
+                    frameIndex.value = (frameIndex.value + 1) % animData.FrameCount;
                     var nextFrameDuration = animData.FrameDurations[frameIndex.value];
 
                     if (timerDelta >= animData.AnimationDuration)
@@ -37,9 +36,9 @@ namespace NSprites
                         var extraTime = (float)(timerDelta % animData.AnimationDuration);
                         while (extraTime > nextFrameDuration)
                         {
-                            extraTime -= nextFrameDuration;
-                            frameIndex.value = (frameIndex.value + 1) % frameCount;
-                            nextFrameDuration = animData.FrameDurations[frameIndex.value];
+                            extraTime         -= nextFrameDuration;
+                            frameIndex.value  =  (frameIndex.value + 1) % animData.FrameCount;
+                            nextFrameDuration =  animData.FrameDurations[frameIndex.value];
                         }
                         nextFrameDuration -= extraTime;
                     }
@@ -47,8 +46,11 @@ namespace NSprites
                     animationTimer.value = Time + nextFrameDuration;
 
                     var frameSize = new float2(animData.UVAtlas.xy / animData.GridSize);
-                    var framePosition = new int2(frameIndex.value % animData.GridSize.x, frameIndex.value / animData.GridSize.x);
-                    uvAtlas = new UVAtlas { value = new float4(frameSize, animData.UVAtlas.zw + frameSize * framePosition) };
+                    var frameIndexOffseted = frameIndex.value + animData.FrameOffset;
+                    var framePosition = new int2(frameIndexOffseted % animData.GridSize.x, frameIndexOffseted / animData.GridSize.x);
+                    float2 framePositionF = frameSize * framePosition;
+                    framePositionF.y = 1.0f - frameSize.y - framePositionF.y;
+                    uvAtlas = new UVAtlas { value = new float4(frameSize, animData.UVAtlas.zw + framePositionF) };
                 }
             }
         }

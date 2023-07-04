@@ -65,8 +65,8 @@
             {
                 return float4x4(
                     scale.x,0,0,scale.x * -input.x,
-                    0,scale.y,0,scale.y * -input.y,
-                    0,0,1,0,
+                    0,0,0,0,
+                    0,0,scale.y,scale.y * -input.y,
                     0,0,0,1
                 );
             }

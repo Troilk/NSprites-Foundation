@@ -49,10 +49,12 @@ namespace NSprites.Authoring
                 animationArray[animIndex] = new SpriteAnimationBlobData
                 {
                     ID = Animator.StringToHash(anim.name),
-                    GridSize = animData.FrameCount,
+                    GridSize = animData.FramesPerSprite,
                     UVAtlas = NSpritesUtils.GetTextureST(animData.SpriteSheet),
                     Scale2D = new float2(animData.SpriteSheet.bounds.size.x, animData.SpriteSheet.bounds.size.y),
-                    AnimationDuration = animationDuration
+                    AnimationDuration = animationDuration,
+                    FrameOffset = animData.FrameOffset,
+                    FrameCount = animData.FrameCount
                     // FrameDuration - allocate lately
                 };
 
@@ -71,8 +73,8 @@ namespace NSprites.Authoring
             ref var initialAnim = ref blobAssetReference.Value[initialAnimationIndex];
 
             baker.AddComponent(entity, new AnimationSetLink { value = blobAssetReference });
-            baker.AddComponent(entity, new AnimationIndex { value = initialAnimationIndex });
-            baker.AddComponent(entity, new AnimationTimer { value = initialAnim.FrameDurations[0] });
+            baker.AddComponent(entity, new AnimationIndex { value   = initialAnimationIndex });
+            baker.AddComponent(entity, new AnimationTimer { value   = initialAnim.FrameDurations[0] });
             baker.AddComponent<FrameIndex>(entity);
             
             baker.AddComponent(entity, new MainTexSTInitial { value = initialAnim.UVAtlas });
